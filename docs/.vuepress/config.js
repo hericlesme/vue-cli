@@ -14,6 +14,11 @@ module.exports = {
       lang: 'ru',
       title: 'Vue CLI',
       description: '🛠️ Стандартный инструментарий для разработки на Vue.js'
+    },
+    '/pt-br/': {
+      lang: 'pt-br',
+      title: 'Vue CLI',
+      description: '🛠️ Ferramentas Padrão para o Desenvolvimento do Vue.js'
     }
   },
   serviceWorker: true,
@@ -303,6 +308,95 @@ module.exports = {
                 '/ru/dev-guide/ui-info.md',
                 '/ru/dev-guide/ui-api.md',
                 '/ru/dev-guide/ui-localization.md'
+              ]
+            }
+          ]
+        }
+      },
+      '/pt-br/': {
+        label: 'Português (Brasil)',
+        selectText: 'Idiomas',
+        lastUpdated: 'Útima atualização',
+        editLinkText: 'Edite esta página no GitHub',
+        serviceWorker: {
+          updatePopup: {
+            message: "Novo conteúdo disponível",
+            buttonText: "Atualizar"
+          }
+        },
+        nav: [
+          {
+            text: 'Manual',
+            link: '/pt-br/guide/'
+          },
+          {
+            text: 'Configurações',
+            link: '/pt-br/config/'
+          },
+          {
+            text: 'Manual Plug-in Dev',
+            items: [
+              { text: 'Manual Plug-in Dev', link: '/pt-br/dev-guide/plugin-dev.md' },
+              { text: 'UI Plugin - Info', link: '/pt-br/dev-guide/ui-info.md' },
+              { text: 'UI Plugin - API', link: '/pt-br/dev-guide/ui-api.md' },
+              { text: 'UI - Localização', link: '/pt-br/dev-guide/ui-localization.md' }
+            ]
+          },
+          {
+            text: 'Plug-ins',
+            items: [
+              { text: 'Babel', link: 'https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel' },
+              { text: 'Typescript', link: 'https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-typescript' },
+              { text: 'ESLint', link: 'https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint' },
+              { text: 'PWA', link: 'https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa' },
+              { text: 'Jest', link: 'https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-unit-jest' },
+              { text: 'Mocha', link: 'https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-unit-mocha' },
+              { text: 'Cypress', link: 'https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-e2e-cypress' },
+              { text: 'Nightwatch', link: 'https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-e2e-nightwatch' }
+            ]
+          },
+          {
+            text: 'Changelog',
+            link: 'https://github.com/vuejs/vue-cli/blob/dev/CHANGELOG.md'
+          }
+        ],
+        sidebar: {
+          '/pt-br/guide/': [
+            '/pt-br/guide/',
+            '/pt-br/guide/installation',
+            {
+              title: 'Introdução',
+              collapsable: false,
+              children: [
+                '/pt-br/guide/prototyping',
+                '/pt-br/guide/creating-a-project',
+                '/pt-br/guide/plugins-and-presets',
+                '/pt-br/guide/cli-service'
+              ]
+            },
+            {
+              title: 'Desenvolvimento',
+              collapsable: false,
+              children: [
+                '/pt-br/guide/browser-compatibility',
+                '/pt-br/guide/html-and-static-assets',
+                '/pt-br/guide/css',
+                '/pt-br/guide/webpack',
+                '/pt-br/guide/mode-and-env',
+                '/pt-br/guide/build-targets',
+                '/pt-br/guide/deployment'
+              ]
+            }
+          ],
+          '/pt-br/dev-guide/': [
+            '/pt-br/dev-guide/plugin-dev.md',
+            {
+              title: 'Deselvolvimento de UI',
+              collapsable: false,
+              children: [
+                '/pt-br/dev-guide/ui-info.md',
+                '/pt-br/dev-guide/ui-api.md',
+                '/pt-br/dev-guide/ui-localization.md'
               ]
             }
           ]
