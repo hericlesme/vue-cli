@@ -2,25 +2,24 @@
 sidebar: auto
 ---
 
-# Configuration Reference
+# Referência para configuração
 
 <Bit/>
 
-## Global CLI Config
+## Configuração para CLI Global
 
-Some global configurations for `@vue/cli`, such as your preferred package manager and your locally saved presets, are stored in a JSON file named `.vuerc` in your home directory. You can edit this file directly with your editor of choice to change the saved options.
+Algumas configurações globais para o `@vue/cli`, como seu gerenciador de pacotes preferido e suas predefinições salvas localmente, são armazenadas em um arquivo JSON chamado `.vuerc` na sua pasta home. Você pode editá-lo diretamente com o editor de sua escolha para alterar as opções salvas.
 
-You can also use the `vue config` command to inspect or modify the global CLI config.
+Você também pode usar o comando `vue config` para inspecionar ou modificar a configuração global da CLI.
 
-## Target Browsers
+## Browsers alvo
 
-See the [Browser Compatibility](../guide/browser-compatibility.md#browserslist) section in guide.
+Veja a seção de [compatibilidade de browsers](../guide/browser-compatibility.md#browserslist) no guia.
 
 ## vue.config.js
+O `vue.config.js` é um arquivo de configuração que irá ser automaticamente carregado pelo `@vue/cli-service`, se ele estiver presente na raiz do seu projeto(próximo ao `package.json`). Você também pode usar o campo `vue` no `package.json`, mas perceba que ao fazer isso você precisará usar apenas os valores que o JSON oferece suporte.
 
-`vue.config.js` is an optional config file that will be automatically loaded by `@vue/cli-service` if it's present in your project root (next to `package.json`). You can also use the `vue` field in `package.json`, but do note in that case you will be limited to JSON-compatible values only.
-
-The file should export an object containing options:
+O arquivo deve ser exportado em um objeto contendo as opções:
 
 ``` js
 // vue.config.js
@@ -31,24 +30,23 @@ module.exports = {
 
 ### baseUrl
 
-- Type: `string`
-- Default: `'/'`
+- Tipo: `string`
+- Padrão: `'/'`
 
-  The base URL your application bundle will be deployed at. This is the equivalent of webpack's `output.publicPath`, but Vue CLI also needs this value for other purposes, so you should **always use `baseUrl` instead of modifying webpack `output.publicPath`**.
+  Indica a url base do bundle onde a aplicação irá ser implantada. É como o `output.publicPath` do webpack, mas a CLI do Vue também precisa desse valor por outros motivos, então você **sempre deve usar `baseUrl` ao invés de modificar o `output.publicPath` do webpack**.
 
-  By default, Vue CLI assumes your app will be deployed at the root of a domain, e.g. `https://www.my-app.com/`. If your app is deployed at a sub-path, you will need to specify that sub-path using this option. For example, if your app is deployed at `https://www.foobar.com/my-app/`, set `baseUrl` to `'/my-app/'`.
+  Por padrão, a CLI do Vue assume que sua aplicação irá ser implantada na raiz do domínio, por examplo, `https://www.my-app.com/`. Se sua aplicação é implantada em um sub-caminho, você precisa especificar de que sub-caminho se trata, usando essa opção. Por exemplo, se sua aplicação é implantada em `https://www.foobar.com/my-app/`, modifique a `baseUrl` para `'/my-app/'`.
 
-  The value can also be set to an empty string (`''`) or a relative path (`./`) so that all assets are linked using relative paths. This allows the built bundle to be deployed under any public path, or used in a file system based environment like a Cordova hybrid app.
+  Também é possível que o valor, seja uma string vazia (`''`), ou um caminho relativo (`./`) para que todos os recursos sejam vinculados usando caminhos relativos. Isso permite que o bundle seja implantado em qualquer caminho público, ou usado em um ambiente baseado em sistema de arquivos como um app hibrido Cordova.
 
-  ::: warning Limitations of relative baseUrl
-  Relative `baseUrl` has some limitations and should be avoided when:
+  ::: atenção Limitações de uma baseUrl usando o caminho relativo
+  A `baseUrl` relativa tem algumas limitações e devem ser evitadas quando:
+  - Você está usando o roteamento de HTML5 `history.pushState`;
 
-  - You are using HTML5 `history.pushState` routing;
-
-  - You are using the `pages` option to build a multi-paged app.
+  - Você está usando a opção de `pages` para criar um app com várias páginas.
   :::
 
-  This value is also respected during development. If you want your dev server to be served at root instead, you can use a conditional value:
+  Esse valor também é respeitado durante o desenvolvimento. Se você quer que seu servidor de desenvolvimento seja implantado na raiz, você pode usar um valor condicional:
 
   ``` js
   module.exports = {
