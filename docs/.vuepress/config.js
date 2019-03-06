@@ -342,9 +342,9 @@ module.exports = {
             link: '/pt-br/config/'
           },
           {
-            text: 'Manual Plug-in Dev',
+            text: 'Manual de Desenv. de Plugins',
             items: [
-              { text: 'Manual Plug-in Dev', link: '/pt-br/dev-guide/plugin-dev.md' },
+              { text: 'Manual de Desenv. de Plugins', link: '/pt-br/dev-guide/plugin-dev.md' },
               { text: 'UI Plugin - Info', link: '/pt-br/dev-guide/ui-info.md' },
               { text: 'UI Plugin - API', link: '/pt-br/dev-guide/ui-api.md' },
               { text: 'UI - Localização', link: '/pt-br/dev-guide/ui-localization.md' }
