@@ -39,7 +39,7 @@ module.exports = {
 
   Também é possível que o valor, seja uma string vazia (`''`), ou um caminho relativo (`./`) para que todos os recursos sejam vinculados usando caminhos relativos. Isso permite que o bundle seja implantado em qualquer caminho público, ou usado em um ambiente baseado em sistema de arquivos como um app hibrido Cordova.
 
-  ::: atenção Limitações de uma baseUrl usando o caminho relativo
+  ::: atenção Limitações de uma baseUrl usando o caminho relativo  
   A `baseUrl` relativa tem algumas limitações e devem ser evitadas quando:
   - Você está usando o roteamento de HTML5 `history.pushState`;
 
@@ -58,18 +58,18 @@ module.exports = {
 
 ### outputDir
 
-- Type: `string`
-- Default: `'dist'`
+- Tipo: `string`
+- Padrão: `'dist'`
 
-  The directory where the production build files will be generated in when running `vue-cli-service build`. Note the target directory will be removed before building (this behavior can be disabled by passing `--no-clean` when building).
+  O diretório onde os arquivos do build de produção irão ser gerados quando executamos `vue-cli-service build`. Note que o diretório alvo irá ser removido antes da criação (esse comportamento pode ser desabilitado passando `--no-clean` ao compilar).
 
-  ::: tip
-  Always use `outputDir` instead of modifying webpack `output.path`.
+  ::: dica
+  Sempre use o `outputDir` ao invés demodificar o atributo `output.path` do webpack.
   :::
 
 ### assetsDir
 
-- Type: `string`
+- Tipo: `string`
 - Default: `''`
 
   A directory (relative to `outputDir`) to nest generated static assets (js, css, img, fonts) under.
