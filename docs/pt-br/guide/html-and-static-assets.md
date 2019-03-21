@@ -39,6 +39,10 @@ Por padrão, um aplicativo Vue CLI gerará automaticamente as dicas de pré-busc
 
 As dicas são injetadas usando [@vue/preload-webpack-plugin](https://github.com/vuejs/preload-webpack-plugin) e podem ser modificadas/deletadas via `chainWebpack` como `config.plugin ('prefetch')`.
 
+::: tip Nota para configurações de múltiplas páginas
+Ao usar uma configuração de várias páginas, o nome do plug-in acima deve ser alterado para corresponder à estrutura 'prefetch- {pagename}', por exemplo, 'prefetch-app'.
+:::
+
 Exemplo:
 
 ``` js
