@@ -26,7 +26,7 @@ Exemplo:
 }
 ```
 
-Você deve adicionar o url ao site ou repositório do plugin no campo `homepage` ou` repository` para que um botão 'More info' seja exibido na descrição do seu plugin:
+Você deve adicionar o url ao site ou repositório do plugin no campo `homepage` ou `repository` para que um botão 'More info' seja exibido na descrição do seu plugin:
 
 ```json
 {
