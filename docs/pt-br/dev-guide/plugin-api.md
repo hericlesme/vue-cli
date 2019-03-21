@@ -81,7 +81,7 @@ Registra uma função de configuração do dev serve. Ele irá receber a instân
   - `{object}` - config raw do webpack
 
 - **Uso**:
-Resolva a configuração final do webpack, que será passada para o webpack.
+Resolve a configuração final do webpack, que será passada para o webpack.
 
 ## resolveChainableWebpackConfig
 
