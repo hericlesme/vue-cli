@@ -1,6 +1,6 @@
 # Prototipagem Instantânea
 
-Você pode rapidamente prototipar com apenas um único arquivo `*.vue` com os comandos `vue serve` e`vue build`, mas eles requerem um addon global adicional para ser instalado primeiro:
+Você pode rapidamente prototipar com apenas um único arquivo `*.vue` com os comandos `vue serve` e `vue build`, mas eles requerem um addon global adicional para ser instalado primeiro:
 
 ```bash
 npm install -g @vue/cli-service-global
@@ -29,7 +29,7 @@ Tudo o que você precisa é de um arquivo `App.vue`:
 
 ```vue
 <template>
-   <h1> Olá! </ h1>
+   <h1> Olá! </h1>
 </template>
 ```
 

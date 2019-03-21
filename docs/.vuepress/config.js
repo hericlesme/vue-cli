@@ -397,6 +397,15 @@ module.exports = {
             }
           ],
           '/pt-br/dev-guide/': [
+            '/dev-guide/plugin-dev.md',
+            {
+              title: 'API reference',
+              collapsable: false,
+              children: [
+                '/dev-guide/plugin-api.md',
+                '/dev-guide/generator-api.md',
+              ]
+            },
             '/pt-br/dev-guide/plugin-dev.md',
             {
               title: 'Deselvolvimento de UI',
