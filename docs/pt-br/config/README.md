@@ -2,57 +2,61 @@
 sidebar: auto
 ---
 
-# Configuration Reference
+# Referência de configuração
 
 <Bit/>
 
-## Global CLI Config
+## Configuração global da CLI
 
-Some global configurations for `@vue/cli`, such as your preferred package manager and your locally saved presets, are stored in a JSON file named `.vuerc` in your home directory. You can edit this file directly with your editor of choice to change the saved options.
+Algumas configurações globais para o `@vue/cli`, como seu gerenciador de pacotes preferido e suas predefinições salvas localmente, são armazenadas em um arquivo JSON chamado `.vuerc` em seu diretório inicial. Você pode editar este arquivo diretamente com o editor de sua escolha para alterar as opções salvas.
 
-You can also use the `vue config` command to inspect or modify the global CLI config.
+Você também pode usar o comando `vue config` para inspecionar ou modificar a configuração global da CLI.
 
-## Target Browsers
+## Navegadores de Destino
 
-See the [Browser Compatibility](../guide/browser-compatibility.md#browserslist) section in guide.
+Veja a seção [Compatibilidade do Navegador](../guide/browser-compatibility.md#browserslist) no guia.
 
 ## vue.config.js
 
-`vue.config.js` is an optional config file that will be automatically loaded by `@vue/cli-service` if it's present in your project root (next to `package.json`). You can also use the `vue` field in `package.json`, but do note in that case you will be limited to JSON-compatible values only.
+`vue.config.js` é um arquivo de configuração opcional que será automaticamente carregado pelo `@vue/cli-service` se estiver presente na raiz do seu projeto (próximo a `package.json`). Você também pode usar o campo `vue` em `package.json`, mas observe que, nesse caso, você estará limitado apenas a valores compatíveis com JSON.
 
-The file should export an object containing options:
+O arquivo deve exportar um objeto contendo opções:
 
 ``` js
 // vue.config.js
 module.exports = {
-  // options...
+  // opções...
 }
 ```
 
 ### baseUrl
 
-- Type: `string`
-- Default: `'/'`
+Depreciado desde o Vue CLI 3.3, por favor use [`publicPath`](#publicPath).
 
-  The base URL your application bundle will be deployed at. This is the equivalent of webpack's `output.publicPath`, but Vue CLI also needs this value for other purposes, so you should **always use `baseUrl` instead of modifying webpack `output.publicPath`**.
+### publicPath
 
-  By default, Vue CLI assumes your app will be deployed at the root of a domain, e.g. `https://www.my-app.com/`. If your app is deployed at a sub-path, you will need to specify that sub-path using this option. For example, if your app is deployed at `https://www.foobar.com/my-app/`, set `baseUrl` to `'/my-app/'`.
+- Tipo: `string`
+- Padrão: `'/'`
 
-  The value can also be set to an empty string (`''`) or a relative path (`./`) so that all assets are linked using relative paths. This allows the built bundle to be deployed under any public path, or used in a file system based environment like a Cordova hybrid app.
+  O URL base do seu pacote de aplicativos será implementado em (conhecido como `baseUrl` antes do Vue CLI 3.3). Este é o equivalente do `output.publicPath` do webpack, mas o Vue CLI também precisa deste valor para outros propósitos, então você deve **sempre usar `publicPath` ao invés de modificar o pacote de saída `output.publicPath`**.
 
-  ::: warning Limitations of relative baseUrl
-  Relative `baseUrl` has some limitations and should be avoided when:
+  Por padrão, a Vue CLI assume que seu aplicativo será implantado na raiz de um domínio, por exemplo, `https://www.my-app.com/`. Se seu aplicativo for implantado em um subcaminho, você precisará especificar esse subcaminho usando essa opção. Por exemplo, se seu aplicativo for implementado em `https://www.foobar.com/my-app/`, defina `publicPath` como `'/ my-app/'`.
 
-  - You are using HTML5 `history.pushState` routing;
+  O valor também pode ser definido para uma string vazia (`''`) ou um caminho relativo (`./`) Para que todos os ativos sejam vinculados usando caminhos relativos. Isso permite que o pacote incorporado seja implantado em qualquer caminho público ou usado em um ambiente baseado em sistema de arquivos, como um aplicativo híbrido Cordova.
 
-  - You are using the `pages` option to build a multi-paged app.
-  :::
+  ::: warning Limitações do publicPath relativo
+  O publicPath relativo tem algumas limitações e deve ser evitado     quando:
 
-  This value is also respected during development. If you want your dev server to be served at root instead, you can use a conditional value:
+  - Você está usando o roteamento `history.pushState` do HTML5;
+
+  - Você está usando a opção `pages` para construir um aplicativo     multi-paginado.
+  :::
+
+  Este valor também é respeitado durante o desenvolvimento. Se        você quiser que seu servidor dev seja servido na raiz, você         pode usar um valor condicional:
 
   ``` js
   module.exports = {
-    baseUrl: process.env.NODE_ENV === 'production'
+    publicPath: process.env.NODE_ENV === 'production'
       ? '/production-sub-path/'
       : '/'
   }
@@ -60,92 +64,93 @@ module.exports = {
 
 ### outputDir
 
-- Type: `string`
-- Default: `'dist'`
+- Tipo: `string`
+- Padrão: `'dist'`
 
-  The directory where the production build files will be generated in when running `vue-cli-service build`. Note the target directory will be removed before building (this behavior can be disabled by passing `--no-clean` when building).
+  O diretório onde os arquivos de compilação de produção serão gerados ao executar o `vue-cli-service build`. Observe que o diretório de destino será removido antes da construção (esse comportamento pode ser desabilitado passando `--no-clean` ao construir).
 
   ::: tip
-  Always use `outputDir` instead of modifying webpack `output.path`.
+  Sempre use `outputDir` em vez de modificar o webpack `output.path`.
   :::
 
 ### assetsDir
 
-- Type: `string`
-- Default: `''`
+- Tipo: `string`
+- Padrão: `''`
 
-  A directory (relative to `outputDir`) to nest generated static assets (js, css, img, fonts) under.
-
+  Um diretório (relativo a `outputDir`) para aninhar recursos estáticos gerados (js, css, img, fonts).
+  
   ::: tip
-  `assetsDir` is ignored when overwriting the filename or chunkFilename from the generated assets.
-  :::
+  `assetsDir` é ignorado ao sobrescrever o nome do arquivo ou o chunkFilename dos recursos gerados.
+  :::
 
 ### indexPath
 
-- Type: `string`
-- Default: `'index.html'`
+- Tipo: `string`
+- Padrão: `'index.html'`
 
-  Specify the output path for the generated `index.html` (relative to `outputDir`). Can also be an absolute path.
+  Especifique o caminho de saída para o `index.html` gerado (relativo ao `outputDir`). Também pode ser um caminho absoluto.
 
 ### filenameHashing
 
-- Type: `boolean`
-- Default: `true`
+- Tipo: `boolean`
+- Padrão: `true`
 
-  By default, generated static assets contains hashes in their filenames for better caching control. However, this requires the index HTML to be auto-generated by Vue CLI. If you cannot make use of the index HTML generated by Vue CLI, you can disable filename hashing by setting this option to `false`.
+  Por padrão, os ativos estáticos gerados contêm hashes em seus nomes de arquivos para melhor controle de armazenamento em cache. No entanto, isso requer que o HTML de índice seja gerado automaticamente pela Vue CLI. Se você não puder usar o HTML de índice gerado pelo Vue CLI, poderá desabilitar o hash de nome de arquivo definindo esta opção como `false`.
 
 ### pages
 
-- Type: `Object`
-- Default: `undefined`
+- Tipo: `Object`
+- Padrão: `undefined`
 
-  Build the app in multi-page mode. Each "page" should have a corresponding JavaScript entry file. The value should be an object where the key is the name of the entry, and the value is either:
+  Construa o aplicativo com múltiplas páginas. Cada "página" deve ter um arquivo de entrada JavaScript correspondente. O valor deve ser um objeto em que a chave é o nome da entrada e o valor é:
 
-  - An object that specifies its `entry`, `template`, `filename`, `title` and `chunks` (all optional except `entry`);
-  - Or a string specifying its `entry`.
+  - Um objeto que especifica seu `entry`,` template`, `filename`,` title` e `chunks` (todos opcionais, exceto` entry`). Quaisquer outras propriedades adicionadas ao lado também serão passadas diretamente para o `html-webpack-plugin`, permitindo ao usuário personalizar o referido plugin;
+  
+  - Ou uma string especificando sua `entrada`.
 
   ``` js
   module.exports = {
     pages: {
       index: {
-        // entry for the page
+        // entrada para a página
         entry: 'src/index/main.js',
-        // the source template
+        // o template de origem
         template: 'public/index.html',
-        // output as dist/index.html
+        // saída como dist/index.html
         filename: 'index.html',
-        // when using title option,
-        // template title tag needs to be <title><%= htmlWebpackPlugin.options.title %></title>
+        // ao usar a opção de título,
+        // a tag de título do template precisa ser <title><%=htmlWebpackPlugin.options.title%></title>
         title: 'Index Page',
-        // chunks to include on this page, by default includes
-        // extracted common chunks and vendor chunks.
+        // chunks para incluir nessa página, por padrão, inclui
+        // extracted common chunks e vendor chunks.
         chunks: ['chunk-vendors', 'chunk-common', 'index']
       },
-      // when using the entry-only string format,
-      // template is inferred to be `public/subpage.html`
-      // and falls back to `public/index.html` if not found.
-      // Output filename is inferred to be `subpage.html`.
+        // ao usar o formato de string somente de entrada,
+        // template é inferido como `public/subpage.html`
+        // e volta para `public/index.html` se não for encontrado.
+        // O nome do arquivo de saída é inferido como `subpage.html`.
       subpage: 'src/subpage/main.js'
     }
   }
   ```
 
   ::: tip
-  When building in multi-page mode, the webpack config will contain different plugins (there will be multiple instances of `html-webpack-plugin` and `preload-webpack-plugin`). Make sure to run `vue inspect` if you are trying to modify the options for those plugins.
+  Ao construir no modo de múltiplas páginas, a configuração do webpack conterá plugins diferentes (haverá várias instâncias do  `plugin-html-webpack` e `plugin-webpack do pré-pacote`).   Certifique-se de executar o `vue inspect` se você está tentando  modificar as opções para esses plugins.
   :::
 
 ### lintOnSave
 
-- Type: `boolean | 'error'`
-- Default: `true`
+- Tipo: `boolean | 'error'`
+- Padrão: `true`
 
-  Whether to perform lint-on-save during development using [eslint-loader](https://github.com/webpack-contrib/eslint-loader). This value is respected only when [`@vue/cli-plugin-eslint`](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint) is installed.
+  O lint-on-save deve ser executado durante o desenvolvimento usando [eslint-loader](https://github.com/webpack-contrib/eslint-loader). Este valor é respeitado apenas quando o [`@vue/cli-plugin-eslint`](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint) estiver instalado .
 
-  When set to `true`, `eslint-loader` will emit lint errors as warnings. By default, warnings are only logged to the terminal and does not fail the compilation.
+  Quando definido como `true`, o `eslint-loader` emitirá erros de lint como avisos. Por padrão, os avisos são registrados apenas no terminal e não falham na compilação.
 
-  To make lint errors show up in the browser overlay, you can use `lintOnSave: 'error'`. This will force `eslint-loader` to always emit errors. this also means lint errors will now cause the compilation to fail.
+  Para que os erros de lint apareçam na sobreposição do navegador,  você pode usar o `lintOnSave: 'error'`. Isso forçará o `eslint-loader` a sempre emitir erros. Isso também significa que os erros de lint agora farão com que a compilação falhe.
 
-  Alternatively, you can configure the overlay to display both warnings and errors:
+  Como alternativa, você pode configurar a sobreposição para exibir avisos e erros:
 
   ``` js
   // vue.config.js
@@ -159,7 +164,7 @@ module.exports = {
   }
   ```
 
-  When `lintOnSave` is a truthy value, `eslint-loader` will be applied in both development and production. If you want to disable `eslint-loader` during production build, you can use the following config:
+  Quando `lintOnSave` é um valor verdadeiro, o `eslint-loader` será aplicado tanto no desenvolvimento quanto na produção. Se você quiser desabilitar o `eslint-loader` durante a compilação de produção, você pode usar a seguinte configuração:
 
   ``` js
   // vue.config.js
@@ -170,119 +175,127 @@ module.exports = {
 
 ### runtimeCompiler
 
-- Type: `boolean`
-- Default: `false`
+- Tipo: `boolean`
+- Padrão: `false`
 
-  Whether to use the build of Vue core that includes the runtime compiler. Setting it to `true` will allow you to use the `template` option in Vue components, but will incur around an extra 10kb payload for your app.
+  Se deve usar a compilação do núcleo Vue que inclui o compilador de tempo de execução. A configuração para 'true' permitirá que você use a opção `template` nos componentes do Vue, mas incorrerá em torno de uma carga extra de 10kb para seu aplicativo.
 
-  See also: [Runtime + Compiler vs. Runtime only](https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only).
+  Veja também: [Runtime + Compiler vs. Runtime only](https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only).
 
 ### transpileDependencies
 
-- Type: `Array<string | RegExp>`
-- Default: `[]`
+- Tipo: `Array<string | RegExp>`
+- Padrão: `[]`
 
-  By default `babel-loader` ignores all files inside `node_modules`. If you want to explicitly transpile a dependency with Babel, you can list it in this option.
+  Por padrão o `babel-loader` ignora todos os arquivos dentro de` node_modules`. Se você quiser explicitamente transpilar uma dependência com o Babel, poderá listá-lo nessa opção.
+
+::: warning Jest config
+Esta opção não é respeitada pelo [plugin cli-unit-jest](#jest), porque em jest, nós não temos que transpilar o código de `/node_modules` a menos que ele use recursos não-padrão - o Node > 8.11 já suporta o mais recentes funcionalidades ECMAScript.
+
+No entanto, jest às vezes tem que transformar o conteúdo de node_modules se esse código usar a sintaxe ES6 `import`/`export`. Nesse caso, use a opção `tranformIgnorePatterns` em `jest.config.js`.
+
+See [o README do plugin](https://github.com/vuejs/vue-cli/blob/dev/packages/%40vue/cli-plugin-unit-jest/README.md) para mais informações.
+:::
 
 ### productionSourceMap
 
-- Type: `boolean`
-- Default: `true`
+- Tipo: `boolean`
+- Padrão: `true`
 
-  Setting this to `false` can speed up production builds if you don't need source maps for production.
+  Definir isso como 'false' pode acelerar as construções de produção se você não precisar de mapas de origem para produção.
 
 ### crossorigin
 
-- Type: `string`
-- Default: `undefined`
+- Tipo: `string`
+- Padrão: `undefined`
 
-  Configure the `crossorigin` attribute on `<link rel="stylesheet">` and `<script>` tags in generated HTML.
+  Configure o atributo `crossorigin` nas tags `<link rel="stylesheet">` e `<script>` no HTML gerado.
 
-  Note that this only affects tags injected by `html-webpack-plugin` - tags directly added in the source template (`public/index.html`) are not affected.
+  Note que isto afeta somente as tags injetadas pelo `html-webpack-plugin` - as tags adicionadas diretamente no template fonte (`public/index.html`) não são afetadas.
 
-  See also: [CORS settings attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes)
+  Veja também: [Atributos de configurações do CORS](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes)
 
 ### integrity
 
-- Type: `boolean`
-- Default: `false`
+- Tipo: `boolean`
+- Padrão: `false`
 
-  Set to `true` to enable [Subresource Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) (SRI) on `<link rel="stylesheet">` and `<script>` tags in generated HTML. If you are hosting your built files on a CDN, it is a good idea to enable this for additional security.
+  Defina como `true` para ativar [Subresource Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) (SRI) em `<link rel="stylesheet">` e `Tags <script>` no HTML gerado. Se você estiver hospedando seus arquivos construídos em um CDN, é uma boa ideia ativá-lo para segurança adicional.
 
-  Note that this only affects tags injected by `html-webpack-plugin` - tags directly added in the source template (`public/index.html`) are not affected.
+  Note que isto afeta somente os tags injetados pelo `html-webpack-plugin` - as tags adicionadas diretamente no template fonte (`public/index.html`) não são afetadas.
 
-  Also, when SRI is enabled, preload resource hints are disabled due to a [bug in Chrome](https://bugs.chromium.org/p/chromium/issues/detail?id=677022) which causes the resources to be downloaded twice.
+  Além disso, quando o SRI está habilitado, as dicas de recurso de pré-carregamento são desativadas devido a um [bug no Chrome](https://bugs.chromium.org/p/chromium/issues/detail?id=677022) que faz com que os recursos sejam baixados duas vezes.
 
 ### configureWebpack
 
-- Type: `Object | Function`
+- Tipo: `Object | Function`
 
-  If the value is an Object, it will be merged into the final config using [webpack-merge](https://github.com/survivejs/webpack-merge).
+  Se o valor for um Object, ele será mesclado na configuração final usando [webpack-merge](https://github.com/survivejs/webpack-merge).
 
-  If the value is a function, it will receive the resolved config as the argument. The function can either mutate the config and return nothing, OR return a cloned or merged version of the config.
+  Se o valor for uma função, ele receberá a configuração resolvida como o argumento. A função pode alterar a configuração e retornar nada OU retornar uma versão clonada ou mesclada da configuração.
 
-  See also: [Working with Webpack > Simple Configuration](../guide/webpack.md#simple-configuration)
+  Veja também: [Trabalhando com Webpack > Configuração Simples](../guide/webpack.md#configuracao-simples)
 
 ### chainWebpack
 
-- Type: `Function`
+- Tipo: `Function`
 
-  A function that will receive an instance of `ChainableConfig` powered by [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain). Allows for more fine-grained modification of the internal webpack config.
+  Uma função que receberá uma instância de `ChainableConfig` ativada por [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain). Permite uma modificação mais detalhada da configuração interna do webpack.
 
-  See also: [Working with Webpack > Chaining](../guide/webpack.md#chaining-advanced)
+  Veja também: [Trabalhando Webpack > Chaining](../guide/webpack.md#chaining-avancado)
 
 ### css.modules
 
-- Type: `boolean`
-- Default: `false`
+- Tipo: `boolean`
+- Padrão: `false`
 
-  By default, only files that ends in `*.module.[ext]` are treated as CSS modules. Setting this to `true` will allow you to drop `.module` in the filenames and treat all `*.(css|scss|sass|less|styl(us)?)` files as CSS modules.
+  Por padrão, somente os arquivos que terminam com `*.module.[ext]` são tratados como módulos CSS. Configurar isso para 'true' permitirá que você remova `.module` nos nomes dos arquivos e trate todos os arquivos `*.(css|scss|sass|less|styl(us)?)` como módulos CSS.
 
-  See also: [Working with CSS > CSS Modules](../guide/css.md#css-modules)
+  Veja Também: [Trabalhando CSS > Módulos CSS](../guide/css.md#modulos-css)
 
 ### css.extract
 
-- Type: `boolean | Object`
-- Default: `true` in production, `false` in development
+- Tipo: `boolean | Object`
+- Padrão: `true` em producão, `false` em desenvolvimento
 
-  Whether to extract CSS in your components into a standalone CSS files (instead of inlined in JavaScript and injected dynamically).
+  Se extrai CSS em seus componentes em arquivos CSS autônomos (em vez de embutidos em JavaScript e injetados dinamicamente).
 
-  This is always disabled when building as web components (styles are inlined and injected into shadowRoot).
+  Isso sempre é desativado ao compilar como componentes da web (os estilos são embutidos e injetados no shadowRoot).
 
-  When building as a library, you can also set this to `false` to avoid your users having to import the CSS themselves.
+  Ao construir como uma biblioteca, você também pode definir isso como "false" para evitar que seus usuários precisem importar o CSS.
 
-  Extracting CSS is disabled by default in development mode since it is incompatible with CSS hot reloading. However, you can still enforce extraction in all cases by explicitly setting the value to `true`.
+  A extração do CSS é desativada por padrão no modo de desenvolvimento, pois é incompatível com o recarregamento a quente do CSS. No entanto, você ainda pode impor a extração em todos os casos definindo explicitamente o valor como 'true'.
 
 ### css.sourceMap
 
-- Type: `boolean`
-- Default: `false`
+- Tipo: `boolean`
+- Padrão: `false`
 
-  Whether to enable source maps for CSS. Setting this to `true` may affect build performance.
+  Se deseja ativar os mapas de origem para CSS. Definir isso como `true` pode afetar o desempenho de criação.
 
 ### css.loaderOptions
 
-- Type: `Object`
-- Default: `{}`
+- Tipo: `Object`
+- Padrão: `{}`
 
-  Pass options to CSS-related loaders. For example:
+  Passa opções para carregadores relacionados ao CSS. Por exemplo:
 
   ``` js
   module.exports = {
     css: {
       loaderOptions: {
         css: {
-          // options here will be passed to css-loader
+          // opções aqui serão passadas para o css-loader
         },
         postcss: {
-          // options here will be passed to postcss-loader
+          // opções aqui serão passadas para o postcss-loader
         }
       }
     }
   }
   ```
 
-  Supported loaders are:
+  Loaders suportados:
 
   - [css-loader](https://github.com/webpack-contrib/css-loader)
   - [postcss-loader](https://github.com/postcss/postcss-loader)
@@ -290,30 +303,30 @@ module.exports = {
   - [less-loader](https://github.com/webpack-contrib/less-loader)
   - [stylus-loader](https://github.com/shama/stylus-loader)
 
-  See also: [Passing Options to Pre-Processor Loaders](../guide/css.md#passing-options-to-pre-processor-loaders)
+  Veja Também: [Opções de passagem para carregadores de pré-processador](../guide/css.md#opcoes-de-passagem-para-carregadores-de-pre-processador)
 
   ::: tip
-  This is preferred over manually tapping into specific loaders using `chainWebpack`, because these options need to be applied in multiple locations where the corresponding loader is used.
+  Isso é preferível ao tocar manualmente em carregadores específicos usando o `chainWebpack`, porque essas opções precisam ser aplicadas em vários locais onde o carregador correspondente é usado.
   :::
 
 ### devServer
 
-- Type: `Object`
+- Tipo: `Object`
 
-  [All options for `webpack-dev-server`](https://webpack.js.org/configuration/dev-server/) are supported. Note that:
+  [Todas as opções para `webpack-dev-server`](https://webpack.js.org/configuration/dev-server/) são suportadas. Note que:
 
-  - Some values like `host`, `port` and `https` may be overwritten by command line flags.
+  - Alguns valores como `host`, `port` e `https` podem ser sobrescritos por sinalizadores de linha de comando.
 
-  - Some values like `publicPath` and `historyApiFallback` should not be modified as they need to be synchronized with [baseUrl](#baseurl) for the dev server to function properly.
+  - Alguns valores como `publicPath` e `historyApiFallback` não devem ser modificados, pois precisam ser sincronizados com [publicPath](#baseurl) para que o servidor dev funcione corretamente.
 
 ### devServer.proxy
 
-- Type: `string | Object`
+- Tipo: `string | Object`
 
-  If your frontend app and the backend API server are not running on the same host, you will need to proxy API requests to the API server during development. This is configurable via the `devServer.proxy` option in `vue.config.js`.
+  Se o aplicativo de front-end e o servidor de API de back-end não estiverem em execução no mesmo host, você precisará fazer proxy nas solicitações de API para o servidor de API durante o desenvolvimento. Isto é configurável através da opção `devServer.proxy` no `vue.config.js`.
 
-  `devServer.proxy` can be a string pointing to the development API server:
-
+  `devServer.proxy` pode ser uma string apontando para o servidor da API de desenvolvimento:
+  
   ``` js
   module.exports = {
     devServer: {
@@ -322,20 +335,20 @@ module.exports = {
   }
   ```
 
-  This will tell the dev server to proxy any unknown requests (requests that did not match a static file) to `http://localhost:4000`.
+  Isso dirá ao servidor dev para fazer proxy de quaisquer solicitações desconhecidas (solicitações que não correspondem a um arquivo estático) para `http://localhost:4000`.
 
-  If you want to have more control over the proxy behavior, you can also use an object with `path: options` pairs. Consult [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware#proxycontext-config) for full options:
+  Se você quer ter mais controle sobre o comportamento do proxy, você também pode usar um objeto com pares `path: options`. Consulte [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware#proxycontext-config) para opções completas:
 
   ``` js
   module.exports = {
     devServer: {
       proxy: {
-        '/api': {
+        '^/api': {
           target: '<url>',
           ws: true,
           changeOrigin: true
         },
-        '/foo': {
+        '^/foo': {
           target: '<other_url>'
         }
       }
@@ -345,28 +358,28 @@ module.exports = {
 
 ### parallel
 
-- Type: `boolean`
-- Default: `require('os').cpus().length > 1`
+- Tipo: `boolean`
+- Padrão: `require('os').cpus().length > 1`
 
-  Whether to use `thread-loader` for Babel or TypeScript transpilation. This is enabled for production builds when the system has more than 1 CPU cores.
+  Se usar o `thread-loader` para a transpilação de Babel ou TypeScript. Isso é ativado para construções de produção quando o sistema tem mais de um núcleo de CPU.
 
 ### pwa
 
-- Type: `Object`
+- Tipo: `Object`
 
-  Pass options to the [PWA Plugin](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa).
+  Passa as opções para o [PWA Plugin](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa).
 
 ### pluginOptions
 
-- Type: `Object`
+- Tipo: `Object`
 
-  This is an object that doesn't go through any schema validation, so it can be used to pass arbitrary options to 3rd party plugins. For example:
+  Este é um objeto que não passa por nenhuma validação de esquema, por isso pode ser usado para passar opções arbitrárias para plugins de terceiros. Por exemplo:
 
   ``` js
   module.exports = {
     pluginOptions: {
       foo: {
-        // plugins can access these options as
+        // plugins podem acessar essas opções como
         // `options.pluginOptions.foo`.
       }
     }
@@ -375,44 +388,44 @@ module.exports = {
 
 ## Babel
 
-Babel can be configured via `babel.config.js`.
+O Babel pode ser configurado via `babel.config.js`.
 
 ::: tip
-Vue CLI uses `babel.config.js` which is a new config format in Babel 7. Unlike `.babelrc` or the `babel` field in `package.json`, this config file does not use a file-location based resolution, and is applied consistently to any file under project root, including dependencies inside `node_modules`. It is recommended to always use `babel.config.js` instead of other formats in Vue CLI projects.
+O Vue CLI usa o `babel.config.js` que é um novo formato de configuração no Babel 7. Ao contrário do `babelrc` ou do campo `babel` no `package.json`, este arquivo de configuração não usa uma resolução baseada no local do arquivo, e é aplicado consistentemente a qualquer arquivo sob o projeto raiz, incluindo dependências dentro de `node_modules`. Recomenda-se sempre usar o `babel.config.js` em vez de outros formatos nos projetos do Vue CLI.
 :::
 
-All Vue CLI apps use `@vue/babel-preset-app`, which includes `babel-preset-env`, JSX support and optimized configuration for minimal bundle size overhead. See [its docs](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/babel-preset-app) for details and preset options.
+Todos os aplicativos Vue CLI usam `@ vue/babel-preset-app`, que inclui `babel-preset-env`, suporte a JSX e configuração otimizada para sobrecarga mínima de tamanho de pacote. Consulte [sua documentação](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/babel-preset-app) para obter detalhes e opções predefinidas.
 
-Also see the [Polyfills](../guide/browser-compatibility.md#polyfills) section in guide.
+Veja também a seção [Polyfills](../guide/guide-compatibility.md#polyfills) no guia.
 
 ## ESLint
 
-ESLint can be configured via `.eslintrc` or `eslintConfig` field in `package.json`.
+O ESLint pode ser configurado através do campo `.eslintrc` ou `eslintConfig` em `package.json`.
 
-See [@vue/cli-plugin-eslint](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint) for more details.
+Veja [@vue/cli-plugin-eslint](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint) para mais detalhes.
 
 ## TypeScript
 
-TypeScript can be configured via `tsconfig.json`.
+TypeScript pode ser configurado via `tsconfig.json`.
 
-See [@vue/cli-plugin-typescript](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-typescript) for more details.
+Veja [@vue/cli-plugin-typescript](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-typescript) para mais detalhes.
 
 ## Unit Testing
 
 ### Jest
 
-See [@vue/cli-plugin-unit-jest](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-unit-jest) for more details.
+Veja [@vue/cli-plugin-unit-jest](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-unit-jest) para mais detalhes.
 
 ### Mocha (via `mocha-webpack`)
 
-See [@vue/cli-plugin-unit-mocha](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-unit-mocha) for more details.
+Veja [@vue/cli-plugin-unit-mocha](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-unit-mocha) para mais detalhes.
 
 ## E2E Testing
 
 ### Cypress
 
-See [@vue/cli-plugin-e2e-cypress](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-e2e-cypress) for more details.
+Veja [@vue/cli-plugin-e2e-cypress](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-e2e-cypress) para mais detalhes.
 
 ### Nightwatch
 
-See [@vue/cli-plugin-e2e-nightwatch](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-e2e-nightwatch) for more details.
+Veja [@vue/cli-plugin-e2e-nightwatch](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-e2e-nightwatch) para mais detalhes.
