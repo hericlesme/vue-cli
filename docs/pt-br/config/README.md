@@ -410,7 +410,7 @@ TypeScript pode ser configurado via `tsconfig.json`.
 
 Veja [@vue/cli-plugin-typescript](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-typescript) para mais detalhes.
 
-## Unit Testing
+## Testes Unitários
 
 ### Jest
 
